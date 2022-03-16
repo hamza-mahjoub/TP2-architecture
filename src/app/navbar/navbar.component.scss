@@ -1,0 +1,21 @@
+p{
+    margin-bottom: 0!important;
+}
+.custom-navbar{
+    display: flex;
+    flex-direction: row;
+    gap: 5%;
+    height: 8vh;
+    align-items: center;
+    justify-content: center;
+}
+@media screen and (max-width: 510px) {
+    .custom-navbar{
+        display: flex;
+        flex-direction: column;
+        gap: 2%;
+        height: 22vh;
+        align-items: center;
+        justify-content: center;
+    }
+  }

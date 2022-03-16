@@ -1,0 +1,167 @@
+<div style="margin-top: 5vh;">
+    <div *ngFor="let user of users">
+        <h3 *ngIf="user.role != 1">{{user.firstName}} {{user.lastName}} born in {{user.governorate}} in {{user.birthDate | date}}</h3>
+        <br>
+        <table  class="table" *ngIf="user.vaccinHistory.length != 0 && user.role != 1">
+            <thead>
+                <tr>
+                    <th scope="col" colspan="1" >Date</th>
+                    <th scope="col" colspan="1" >Governorate</th>
+                    <th scope="col" colspan="1" >Vaccin center</th>
+                    <th scope="col" colspan="1" >Vaccinator</th>
+                    <th scope="col" colspan="1" >Status</th>
+                    <th scope="col" colspan="1" >Actions</th>
+            </thead>
+            <tbody>
+                <tr *ngFor="let vaccin of user.vaccinHistory ; let i">
+                    <td>{{vaccin.date|date}}</td>
+                    <td>{{vaccin.location.governorate}}</td>
+                    <td>{{vaccin.location.vaccinationCenter}}</td>
+                    <td>{{vaccin.vaccinator}}</td>
+                    <td>{{status[vaccin.status-1]}}</td>
+                    <td><i 
+                            (click)="deleteAppointment(vaccin.date,user.id)"
+                            class="fa fa-trash" 
+                            aria-hidden="true" 
+                            style="margin-right: 20%;"
+                            >
+                        </i>
+                        <i 
+                            (click)="makeUpdate(vaccin,user.id)"
+                            class="fa fa-edit"
+                        >
+                        </i>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div *ngIf="user.vaccinHistory.length == 0 && user.role != 1" style="margin-left: 2%;">
+            no vaccin history, add an appointment !
+        </div>
+        <form #addAppointmentForm="ngForm" *ngIf="user.role != 1">
+            <h5 *ngIf="user.isUpdate" style="color: red;">Updating the appointment of {{user.firstName}} {{user.lastName}} of {{vaccinToUpdate.date | date}}</h5>
+            <div class="row">
+                <div class="col-md-3 pr-1" *ngIf="!user.isUpdate">
+                    <div class="form-group">
+                        <label>Date</label>
+                        <input 
+                            type="date" 
+                            class="form-control" 
+                            #date="ngModel"
+                            ngModel         
+                            required   
+                            name="date"
+                            [ngClass]="{ 'is-invalid': date.touched && date.errors }" 
+                        >
+                        <div *ngIf="date.errors?.['required'] && date.touched" class="invalid-feedback">
+                            <div>Date is required</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 pr-1" *ngIf="!user.isUpdate">
+                    <div class="form-group">
+                        <label>Governorate</label>
+                        <input 
+                            type="string" 
+                            class="form-control" 
+                            #governorate="ngModel"
+                            placeholder="Governorate ..."
+                            ngModel         
+                            required   
+                            name="governorate"
+                            [ngClass]="{ 'is-invalid': governorate.touched && governorate.errors }" 
+                        >
+                        <div *ngIf="governorate.errors?.['required'] && governorate.touched" class="invalid-feedback">
+                            <div>Governorate is required</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 pr-1" *ngIf="!user.isUpdate">
+                    <div class="form-group">
+                        <label>Vaccination Center</label>
+                        <input 
+                            type="string" 
+                            class="form-control" 
+                            #vaccinationCenter="ngModel"
+                            placeholder="Vaccination Center ..."
+                            ngModel         
+                            required   
+                            name="vaccinationCenter"
+                            [ngClass]="{ 'is-invalid': vaccinationCenter.touched && vaccinationCenter.errors }" 
+                        >
+                        <div *ngIf="vaccinationCenter.errors?.['required'] && vaccinationCenter.touched" class="invalid-feedback">
+                            <div>vaccinationCenter is required</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 pr-1" *ngIf="user.isUpdate">
+                    <div class="form-group">
+                        <label>Vaccinator</label>
+                        <input 
+                            type="string" 
+                            class="form-control" 
+                            #vaccinator="ngModel"
+                            placeholder="Vaccinator ..."
+                            ngModel         
+                            [value]="vaccinToUpdate?.vaccinator"
+                            name="vaccinator"
+                            [ngClass]="{ 'is-invalid': vaccinator.touched && vaccinator.errors }" 
+                        >
+                        <div *ngIf="vaccinator.errors?.['required'] && vaccinator.touched" class="invalid-feedback">
+                            <div>vaccinationCenter is required</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 pr-1" *ngIf="user.isUpdate">
+                    <div class="form-group">
+                        <label>Priority</label>
+                        <div class="priority-choice">
+                            <div class="form-check form-check-radio" *ngFor="let item of status ; let i = index">
+                                <label class="form-check-label">
+                                    <input 
+                                        class="form-check-input" 
+                                        id="exampleRadios1"
+                                        type="radio" 
+                                        ngModel
+                                        name="status" 
+                                        value={{i+1}}
+                                    > 
+                                    <span class="form-check-sign">{{status[i]}}</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 button-wrapper">
+                    <button
+                    *ngIf="!user.isUpdate"
+                    [disabled]="addAppointmentForm.invalid "
+                    (click)="addAppointment(addAppointmentForm,user.id)"
+                    type="submit" 
+                    class="btn btn-primary mt-2">
+                    add appointment
+                    </button>
+                    <button
+                    style="margin-right: 5%;"
+                    *ngIf="user.isUpdate"
+                    [disabled]="addAppointmentForm.invalid "
+                    (click)="updateAppointment(addAppointmentForm,user.id,vaccinToUpdate.date)"
+                    type="submit" 
+                    class="btn btn-primary mt-2">
+                    update appointment
+                    </button>
+                    <button
+                    *ngIf="user.isUpdate"
+                    (click)="makeUpdate(null,user.id)"
+                    type="submit" 
+                    class="btn btn-primary mt-2">
+                    cancel
+                    </button>
+                </div>
+            </div>
+        </form>
+ 
+        <br>
+        <br>
+    </div>
+</div>

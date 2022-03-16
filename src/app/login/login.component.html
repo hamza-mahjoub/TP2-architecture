@@ -1,0 +1,48 @@
+﻿<div class="card">
+    <h4 class="card-header">Login</h4>
+    <div class="card-body">
+        <form  #loginForm="ngForm">
+            <div class="form-group">
+                <label for="cin">CIN</label>
+                <input 
+                    type="text" 
+                    class="form-control" 
+                    placeholder="Cin..."
+                    #cin="ngModel"
+                    ngModel         
+                    required   
+                    name="cin"
+                    [ngClass]="{ 'is-invalid': cin.touched && cin.errors }" 
+                />
+                <div *ngIf="cin.errors?.['required'] && cin.touched" class="invalid-feedback">
+                    <div>Cin is required</div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input 
+                    type="password" 
+                    class="form-control" 
+                    placeholder="Password..."
+                    #password="ngModel"
+                    ngModel         
+                    required   
+                    name="password"
+                    [ngClass]="{ 'is-invalid': password.touched && password.errors }" 
+                />
+                <div *ngIf="password.errors?.['required'] && password.touched" class="invalid-feedback">
+                    <div>Password is required</div>
+                </div>
+            </div>
+            <div class="form-group">
+                <button
+                [disabled]="loginForm.invalid "
+                (click)="submitLoginForm(loginForm)"
+                type="submit" 
+                class="btn btn-primary">
+                login</button>
+                <!-- <a routerLink="../register" class="btn btn-link">Register</a> -->
+            </div>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,35 @@
+<div class="fixed-top navbar-light bg-light" color-on-scroll="500">
+    <div >
+            <ul class="navbar-nav ml-auto custom-navbar" >
+                <li class="nav-item">
+                    <a class="nav-link" [routerLink]="['/home']">
+                        <p> Home Page</p>
+                    </a>
+                </li>
+                <li class="nav-item" *ngIf="isAuthenticated()">
+                    <a class="nav-link" [routerLink]="['/profile']">
+                        <p>Profile</p>
+                    </a>
+                </li>
+                <li class="nav-item" *ngIf="isAuthenticated() && isAdmin()">
+                    <a class="nav-link" [routerLink]="['/affect-vaccination']">
+                        <p>affect a vaccination</p>
+                    </a>
+                </li>
+                <li class="nav-item" *ngIf="!isAuthenticated()">
+                    <a class="nav-link" [routerLink]="['/register']">
+                        <p>Register</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link btn btn-neutral" [routerLink]="['/login']" *ngIf="!isAuthenticated()">
+                        Login
+                    </a>
+                    <button class="nav-link btn btn-neutral" (click)="logout()" *ngIf="isAuthenticated()">
+                        Logout
+                    </button>
+                </li>
+
+            </ul>
+    </div>
+</div>

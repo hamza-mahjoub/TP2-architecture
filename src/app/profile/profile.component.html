@@ -1,0 +1,36 @@
+<div class="row responsive-profile">
+    <div>
+        <app-info-item [fieldname]="'CIN'" [data]="user.cin" [position]="1"></app-info-item>
+        <app-info-item [fieldname]="'Email'" [data]="user.email" [position]="2"></app-info-item>
+        <app-info-item [fieldname]="'first name'" [data]="user.firstName" [position]="3"></app-info-item>
+        <app-info-item [fieldname]="'last name'" [data]="user.lastName" [position]="4"></app-info-item>
+        <app-info-item [fieldname]="'Phone Number'" [data]="user.phoneNumber" [position]="5"></app-info-item>
+        <app-info-item [fieldname]="'Birth date'" [data]="user.birthDate|date" [position]="6"></app-info-item>
+        <app-info-item [fieldname]="'Governorate'" [data]="user.governorate" [position]="7"></app-info-item>
+    </div>
+    <h1 style="text-align: center;margin-top: 5vh;">Your Vaccin History</h1>
+    <div style="margin-top: 5vh;">
+        <table class="table" *ngIf="user.vaccinHistory.length != 0">
+            <thead>
+                <tr>
+                    <th scope="col" colspan="1" >Date</th>
+                    <th scope="col" colspan="1" >Governorate</th>
+                    <th scope="col" colspan="1" >Vaccin center</th>
+                    <th scope="col" colspan="1" >Vaccinator</th>
+                    <th scope="col" colspan="1" >Status</th>
+            </thead>
+            <tbody>
+                <tr *ngFor="let vaccin of user.vaccinHistory ; let i">
+                    <td>{{vaccin.date|date}}</td>
+                    <td>{{vaccin.location.governorate}}</td>
+                    <td>{{vaccin.location.vaccinationCenter}}</td>
+                    <td>{{vaccin.vaccinator}}</td>
+                    <td>{{status[vaccin.status-1]}}</td>
+                </tr>
+            </tbody>
+        </table>
+        <div *ngIf="user.vaccinHistory.length == 0" style="margin-left: 2%;">
+            You have no vaccin history, wait until one is affected !
+        </div>
+    </div>
+</div>

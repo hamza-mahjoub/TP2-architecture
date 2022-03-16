@@ -1,0 +1,201 @@
+<form #registerForm="ngForm">
+    <div class="row">
+        <div class="col-md-4 pr-1">
+            <div class="form-group">
+                <label>Cin</label>
+                <input 
+                    type="text" 
+                    class="form-control" 
+                    placeholder="Cin..."
+                    #cin="ngModel"
+                    minlength="8"
+                    maxlength="8"
+                    [minLength]="8"
+                    [maxLength]="8"
+                    ngModel         
+                    required   
+                    name="cin"
+                    [ngClass]="{ 'is-invalid': cin.touched && cin.errors }" 
+                >
+                <div *ngIf="cin.errors?.['required'] && cin.touched" class="invalid-feedback">
+                    <div>Cin is required</div>
+                </div>
+                <div *ngIf="cin.errors && cin.touched" class="invalid-feedback">
+                    <div>Length is 8</div>
+                </div>
+            </div>
+        </div>
+        <br>
+        <div class="col-md-4 px-1">
+            <div class="form-group">
+                <label>First name</label>
+                <input 
+                    type="text" 
+                    class="form-control" 
+                    placeholder="first name..."
+                    #firstName="ngModel"
+                    ngModel         
+                    required   
+                    name="firstName"
+                    [ngClass]="{ 'is-invalid': firstName.touched && firstName.errors }" 
+                >
+                <div *ngIf="firstName.errors?.['required'] && firstName.touched" class="invalid-feedback">
+                    <div>first name is required</div>
+                </div>
+            </div>
+        </div>
+        <br>
+        <div class="col-md-4 pl-1">
+            <div class="form-group">
+                <label>Last name</label>
+                <input 
+                    type="text" 
+                    class="form-control" 
+                    placeholder="last name..."
+                    #lastName="ngModel"
+                    ngModel         
+                    required   
+                    name="lastName"
+                    [ngClass]="{ 'is-invalid': firstName.touched && firstName.errors }" 
+                >
+                <div *ngIf="lastName.errors?.['required'] && lastName.touched" class="invalid-feedback">
+                    <div>last name is required</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-md-4 pl-1">
+            <div class="form-group">
+                <label>Email</label>
+                <input 
+                    type="email" 
+                    class="form-control" 
+                    #email="ngModel"
+                    ngModel        
+                    [email]="true" 
+                    required   
+                    name="email"
+                    [ngClass]="{ 'is-invalid': email.touched && email.errors }" 
+                >
+                <div *ngIf="email.errors?.['required'] && email.touched" class="invalid-feedback">
+                    <div>email is required</div>
+                </div>
+                <div *ngIf="email.errors?.['email'] && email.touched" class="invalid-feedback">
+                    <div>must be a valid email</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 pl-1">
+            <div class="form-group">
+                <label>Phone number</label>
+                <input 
+                    type="string" 
+                    class="form-control" 
+                    #phoneNumber="ngModel"
+                    placeholder="Phone number"
+                    ngModel         
+                    minlength="8"
+                    maxlength="8"
+                    [minLength]="8"
+                    [maxLength]="8"
+                    required   
+                    name="phoneNumber"
+                    [ngClass]="{ 'is-invalid': phoneNumber.touched && phoneNumber.errors }" 
+                >
+                <div *ngIf="phoneNumber.errors?.['required'] && phoneNumber.touched" class="invalid-feedback">
+                    <div>phone Number is required</div>
+                </div>
+                <div *ngIf="phoneNumber.errors && phoneNumber.touched" class="invalid-feedback">
+                    <div>Length is 8</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-md-4 pl-1">
+            <div class="form-group">
+                <label>Birth date</label>
+                <input 
+                    type="date" 
+                    class="form-control" 
+                    #birthDate="ngModel"
+                    ngModel         
+                    required   
+                    name="birthDate"
+                    [ngClass]="{ 'is-invalid': birthDate.touched && birthDate.errors }" 
+                >
+                <div *ngIf="birthDate.errors?.['required'] && birthDate.touched" class="invalid-feedback">
+                    <div>Birth date is required</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 pl-1">
+            <div class="form-group">
+                <label>Governorate</label>
+                <input 
+                    type="string" 
+                    class="form-control" 
+                    #governorate="ngModel"
+                    placeholder="Governorate ..."
+                    ngModel         
+                    required   
+                    name="governorate"
+                    [ngClass]="{ 'is-invalid': governorate.touched && governorate.errors }" 
+                >
+                <div *ngIf="governorate.errors?.['required'] && governorate.touched" class="invalid-feedback">
+                    <div>Governorate is required</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-md-4 pl-1">
+            <div class="form-group">
+                <label>Password</label>
+                <input 
+                    type="password" 
+                    class="form-control" 
+                    #password="ngModel"
+                    placeholder="password..."
+                    ngModel         
+                    required   
+                    name="password"
+                    [ngClass]="{ 'is-invalid': password.touched && password.errors }" 
+                >
+                <div *ngIf="password.errors?.['required'] && password.touched" class="invalid-feedback">
+                    <div>password is required</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 pl-1">
+            <div class="form-group">
+                <label>Confirm password</label>
+                <input 
+                    type="password" 
+                    class="form-control" 
+                    #confirmPassword="ngModel"
+                    placeholder="confirm password..."
+                    ngModel         
+                    required   
+                    name="confirmPassword"
+                    [ngClass]="{ 'is-invalid': confirmPassword.touched && confirmPassword.errors }" 
+                >
+                <div *ngIf="confirmPassword.errors?.['required'] && confirmPassword.touched" class="invalid-feedback">
+                    <div>Confirm password is required</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-2 button-wrapper">
+            <button
+            [disabled]="registerForm.invalid "
+            (click)="sumbitRegisterForm(registerForm)"
+            type="submit" 
+            class="btn btn-primary mt-2">
+            Submit</button>
+    </div>
+</form>
