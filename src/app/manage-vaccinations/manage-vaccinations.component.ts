@@ -38,7 +38,7 @@ export class ManageVaccinationsComponent implements OnInit {
   }
 
   deleteAppointment(date,id){
-    this.manageVaccinationsService.deleteAppointment(date,id);
+    this.users = this.manageVaccinationsService.deleteAppointment(date,id);
   }
 
   makeUpdate(vaccin,id){

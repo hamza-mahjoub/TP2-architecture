@@ -45,11 +45,17 @@ export class ManageVaccinationsService {
 
     deleteAppointment(date,id){
         const user = USERS.find(user => user.id === id);
-        if(!user)
+        if(!user) {
             this.toastr.error("User dosn't exist!")
+        }
         else {
             const vaccins = user.vaccinHistory.filter(vaccin => vaccin.date !== date)
             user.vaccinHistory = vaccins
         }   
+        const users = []
+        USERS.forEach(user => {
+            users.push({...user,isUpdate:false})
+        });
+        return users
     }
 }
